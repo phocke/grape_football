@@ -2,6 +2,22 @@ require 'grape'
 require 'json'
 require 'securerandom'
 
+class Xcoordinate < Grape::Validations::Validator
+  def validate_param!(attr_name, params)
+    if params[attr_name].to_i < 0 or params[attr_name].to_i > 4
+      throw :error, :status => 400, :message => "#{attr_name}: must be an integer between 0 and 4 (inclusive)"
+    end
+  end
+end
+
+class Ycoordinate < Grape::Validations::Validator
+  def validate_param!(attr_name, params)
+    if params[attr_name].to_i < 0 or params[attr_name].to_i > 2
+      throw :error, :status => 400, :message => "#{attr_name}: must be an integer between 0 and 4 (inclusive)"
+    end
+  end
+end
+
 class FootballAPI < Grape::API
   prefix 'api'
   version 'v1'
@@ -31,8 +47,8 @@ class FootballAPI < Grape::API
 
     namespace '' do
       params do
-        requires :x, type: Integer, desc: "X coordinate"
-        requires :y, type: Integer, desc: "Y coordinate"
+        requires :x, :xcoordinate => true, desc: "X coordinate"
+        requires :y, :ycoordinate => true, desc: "Y coordinate"
         requires :game_id, type: String, desc: "Id of the game you're playing - can be obtained at /games/start"
       end
       post :shoot do
@@ -40,8 +56,8 @@ class FootballAPI < Grape::API
       end
 
       params do
-        requires :x, type: Integer, desc: "X coordinate"
-        requires :y, type: Integer, desc: "Y coordinate"
+        requires :x, :xcoordinate => true, desc: "X coordinate"
+        requires :y, :ycoordinate => true, desc: "Y coordinate"
         requires :game_id, type: String, desc: "Id of the game you're playing - can be obtained at /games/start"
       end
       post :save do
@@ -50,3 +66,6 @@ class FootballAPI < Grape::API
     end
   end
 end
+
+
+

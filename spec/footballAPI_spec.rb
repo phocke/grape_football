@@ -39,6 +39,14 @@ describe FootballAPI do
           post "/api/v1/game/#{action}", {y: 0, game_id: @game_id}
           last_response.status.should == 400
         end
+
+        it 'should be 400 for out of bounds x' do
+          post "/api/v1/game/#{action}", {y: 0, x: -1, game_id: @game_id}
+          last_response.status.should == 400
+
+          post "/api/v1/game/#{action}", {y: 0, x: 5, game_id: @game_id}
+          last_response.status.should == 400
+        end
       end
     end
 
@@ -53,6 +61,14 @@ describe FootballAPI do
       describe 'nil' do
         it 'should be 400' do
           post "/api/v1/game/#{action}", {x: 0, game_id: @game_id}
+          last_response.status.should == 400
+        end
+
+        it 'should be 400 for out of bounds y' do
+          post "/api/v1/game/#{action}", {y: 3, x: 0, game_id: @game_id}
+          last_response.status.should == 400
+
+          post "/api/v1/game/#{action}", {y: -1, x: 0, game_id: @game_id}
           last_response.status.should == 400
         end
       end
