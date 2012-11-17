@@ -5,10 +5,12 @@ require 'securerandom'
 class FootballAPI < Grape::API
   prefix 'api'
   version 'v1'
+  format :json
+
 
   helpers do
-    def find_or_create_user
-      cookies[:user_id] ||= generate_id
+    def find_or_create_game
+      cookies[:game_id] ||= generate_id
     end
 
     def generate_id
@@ -20,17 +22,31 @@ class FootballAPI < Grape::API
     {:hello => 'world'}.to_json
   end
 
-  namespace :game do
 
-    post 'start' do
-      find_or_create_user
+  resource :game do
+    post :start do
+      find_or_create_game
+      {game_id: cookies[:game_id]}
     end
 
-  end
-end
+    namespace '' do
+      params do
+        requires :x, type: Integer, desc: "X coordinate"
+        requires :y, type: Integer, desc: "Y coordinate"
+        requires :game_id, type: String, desc: "Id of the game you're playing - can be obtained at /games/start"
+      end
+      post :shoot do
+        true
+      end
 
-class User < Struct.new(:name, :surname)
-  def full_name
-    [name, surname].join(' ')
+      params do
+        requires :x, type: Integer, desc: "X coordinate"
+        requires :y, type: Integer, desc: "Y coordinate"
+        requires :game_id, type: String, desc: "Id of the game you're playing - can be obtained at /games/start"
+      end
+      post :save do
+        true
+      end
+    end
   end
 end
