@@ -19,5 +19,10 @@ Just use good ol' rake
 
     rake
 
+## Hot to use cookies
 
+In order to use cookies for game identification od this:
 
+    curl -b cookie.txt -c cookie.txt -X GET  http://localhost:9292/api/v1/game/start
+
+It will set game_id value in cookie, as well as give you JSON with the same value. Initially API will requre you to provide game_id param for all game related requests (save, shoot, show). In the next version you'll be able to just use cookie
