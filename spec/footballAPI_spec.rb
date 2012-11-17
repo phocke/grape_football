@@ -15,5 +15,18 @@ describe FootballAPI do
         JSON.parse(last_response.body)["hello"].should == "world"
       end
     end
+
+
+    describe 'GET /api/v1/game' do
+
+      it 'should set user_id in cookies' do
+        post "/api/v1/game/start"
+
+        last_response.status.should == 201
+        rack_mock_session.cookie_jar["user_id"].should_not == nil
+      end
+
+    end
+
   end
 end
