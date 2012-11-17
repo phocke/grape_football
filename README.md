@@ -1,6 +1,6 @@
 ## How to run it
 
-In order to run this app just type it in the app folder:
+In order to run this app just type it in the application folder:
 
     rackup config.ru
 
@@ -19,7 +19,7 @@ Just use good ol' rake
 
     rake
 
-## Hot to use cookies
+## How to use cookies
 
 In order to use cookies for game identification od this:
 
