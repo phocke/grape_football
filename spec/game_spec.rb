@@ -5,17 +5,12 @@ describe Game do
     @game = Game.new
   end
 
-  it "should be a game" do
+  it "should be a started game" do
     @game.should be_kind_of(Game)
+    @game.state.should == "setting_up"
   end
 
   describe "goal?" do
-    it "should be true if there's a goal" do
 
-    end
-
-    it "should be false if there's no goal" do
-
-    end
   end
 end
