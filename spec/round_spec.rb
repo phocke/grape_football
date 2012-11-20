@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-def boolean?(val)
-  !!val == val
-end
-
 describe Round do
   before(:each) do
     @round = Round.new
