@@ -2,6 +2,7 @@ require 'grape'
 require 'json'
 require 'securerandom'
 require './app/player'
+require './app/round'
 
 class Xcoordinate < Grape::Validations::Validator
   def validate_param!(attr_name, params)
