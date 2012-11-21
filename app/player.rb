@@ -2,7 +2,7 @@ class Player
 
   # def initialize
   # end
-
+  attr_accessor :name
   def save x = random_x, y = random_y
     [x, y]
   end

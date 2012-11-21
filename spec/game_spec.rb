@@ -56,6 +56,38 @@ describe Game do
         @game.finish
         @game.state.should == "finished"
       end
+
+      describe "scores" do
+        it "should be draw" do
+          @game.start
+          5.times do
+            @game.play_round([1,4],[1,4],[0,0],[0,0])
+            @game.next_round
+          end
+          @game.finish
+          @game.result.should == "draw"
+        end
+
+        it "should make player_1 a winner" do
+          @game.start
+          5.times do
+            @game.play_round([1,4],[0,0],[0,0],[0,0]) #scored all, saved all
+            @game.next_round
+          end
+          @game.finish
+          @game.result.should == "player_1 won"
+        end
+
+        it "should make player_2 a winner" do
+          @game.start
+          5.times do
+            @game.play_round([0,0],[0,0],[2,2],[0,0]) #saved all, scored all
+            @game.next_round
+          end
+          @game.finish
+          @game.result.should == "player_2 won"
+        end
+      end
     end
   end
 end
