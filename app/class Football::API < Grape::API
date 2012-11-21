@@ -1,3 +1,0 @@
-class Football::API < Grape::API
-
-end
